@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Bateria list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Numero</th>
+                <th>Energia</th>
+                <th>Temperatura</th>
+                <th>Coordenada</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for baterium in baterias %}
+            <tr>
+                <td><a href="{{ path('bateria_show', { 'id': baterium.id }) }}">{{ baterium.id }}</a></td>
+                <td>{{ baterium.numero }}</td>
+                <td>{{ baterium.energia }}</td>
+                <td>{{ baterium.temperatura }}</td>
+                <td>{{ baterium.coordenada }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('bateria_show', { 'id': baterium.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('bateria_edit', { 'id': baterium.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('bateria_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

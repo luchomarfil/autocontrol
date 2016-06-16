@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Bateria</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ baterium.id }}</td>
+            </tr>
+            <tr>
+                <th>Numero</th>
+                <td>{{ baterium.numero }}</td>
+            </tr>
+            <tr>
+                <th>Energia</th>
+                <td>{{ baterium.energia }}</td>
+            </tr>
+            <tr>
+                <th>Temperatura</th>
+                <td>{{ baterium.temperatura }}</td>
+            </tr>
+            <tr>
+                <th>Coordenada</th>
+                <td>{{ baterium.coordenada }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('bateria_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('bateria_edit', { 'id': baterium.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

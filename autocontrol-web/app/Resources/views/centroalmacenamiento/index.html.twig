@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>CentroAlmacenamiento list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Numero</th>
+                <th>Energia</th>
+                <th>Coordenada</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for centroAlmacenamiento in centroAlmacenamientos %}
+            <tr>
+                <td><a href="{{ path('centroalmacenamiento_show', { 'id': centroAlmacenamiento.id }) }}">{{ centroAlmacenamiento.id }}</a></td>
+                <td>{{ centroAlmacenamiento.numero }}</td>
+                <td>{{ centroAlmacenamiento.energia }}</td>
+                <td>{{ centroAlmacenamiento.coordenada }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('centroalmacenamiento_show', { 'id': centroAlmacenamiento.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('centroalmacenamiento_edit', { 'id': centroAlmacenamiento.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('centroalmacenamiento_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

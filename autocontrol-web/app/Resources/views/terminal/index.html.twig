@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Terminal list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Numero</th>
+                <th>Estado</th>
+                <th>Coordenada</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for terminal in terminals %}
+            <tr>
+                <td><a href="{{ path('terminal_show', { 'id': terminal.id }) }}">{{ terminal.id }}</a></td>
+                <td>{{ terminal.numero }}</td>
+                <td>{{ terminal.estado }}</td>
+                <td>{{ terminal.coordenada }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('terminal_show', { 'id': terminal.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('terminal_edit', { 'id': terminal.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('terminal_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}
