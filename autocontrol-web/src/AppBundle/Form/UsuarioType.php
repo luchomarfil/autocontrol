@@ -18,8 +18,7 @@ class UsuarioType extends AbstractType
             ->add('username')
             ->add('dni')
             ->add('nombre')
-            ->add('password')
-            ->add('tipo_usuario')
+            ->add('password', 'Symfony\Component\Form\Extension\Core\Type\PasswordType')
         ;
     }
     

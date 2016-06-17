@@ -1,16 +1,15 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Terminal creation</h1>
+    <div class="container col-md-7 col-md-offset-2">
+    <legend>Alta de Terminal</legend>
 
     {{ form_start(form) }}
         {{ form_widget(form) }}
-        <input type="submit" value="Create" />
+        <input class="btn btn-success" type="submit" value="Crear" />
     {{ form_end(form) }}
-
-    <ul>
-        <li>
-            <a href="{{ path('terminal_index') }}">Back to the list</a>
-        </li>
-    </ul>
+    <br>
+    <legend></legend>
+    <a class="btn btn-info" href="{{ path('terminal_index') }}">Volver a la lista</a>
+</div>
 {% endblock %}

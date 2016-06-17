@@ -2,15 +2,19 @@ autocontrol-web
 
 para hacer que esto ande:
 
-* cd/directorio del proyecto web
+1) cd/directorio del proyecto web
 
-* levantar el servidor de symfony:
+2) levantar el servidor de symfony:
 	php bin/console server:run 
 
-* crear la bd:
+3) crear la bd:
 	php bin/console doctrine:database:create
 
-* actualizar la db
+4) actualizar la db
 	bin/console doctrine:schema:update --force
+
+
+
+DAMI: el usuario con tipo_usuario = 0 son los Supervisores, el tipo_usuario = 1, es el Admin
 
 
