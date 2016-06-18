@@ -1,44 +1,40 @@
 {% extends 'backend.html.twig' %}
 
 {% block body %}
-    <h1>Bateria</h1>
-
+<div class="container">
+    <legend>Batería a Eliminar:</legend>
     <table>
         <tbody>
             <tr>
-                <th>Id</th>
-                <td>{{ baterium.id }}</td>
-            </tr>
-            <tr>
-                <th>Numero</th>
+                <th>Numero: </th>
                 <td>{{ baterium.numero }}</td>
             </tr>
             <tr>
-                <th>Energia</th>
+                <th>Energia: </th>
                 <td>{{ baterium.energia }}</td>
             </tr>
             <tr>
-                <th>Temperatura</th>
+                <th>Temperatura: </th>
                 <td>{{ baterium.temperatura }}</td>
             </tr>
             <tr>
-                <th>Coordenada</th>
+                <th>Coordenada: </th>
                 <td>{{ baterium.coordenada }}</td>
             </tr>
         </tbody>
     </table>
-
+    <br>
+    <legend></legend>
     <ul>
         <li>
-            <a href="{{ path('bateria_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('bateria_edit', { 'id': baterium.id }) }}">Edit</a>
-        </li>
-        <li>
             {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
+                <input class="btn btn-warning" type="submit" value="Eliminar">
             {{ form_end(delete_form) }}
         </li>
+        <br>
+        <li>
+            <a class="btn btn-info" href="{{ path('bateria_index') }}">Volver al listado</a>
+        </li>
     </ul>
+</div>
 {% endblock %}

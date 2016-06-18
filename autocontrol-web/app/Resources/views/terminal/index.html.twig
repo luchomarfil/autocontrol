@@ -19,7 +19,7 @@
                 <td>{{ terminal.estado }}</td>
                 <td>{{ terminal.coordenada }}</td>
                 <td>
-                    <a class="glyphicon glyphicon-eye-open" alt="Ver" title="Ver más" href="{{ path('terminal_show', { 'id': terminal.id }) }}"></a>
+                    <a class="glyphicon glyphicon-remove" alt="Ver" title="Eliminar" href="{{ path('terminal_show', { 'id': terminal.id }) }}"></a>
                     |
                     <a class="glyphicon glyphicon-pencil" alt="Editar" title="Editar" href="{{ path('terminal_edit', { 'id': terminal.id }) }}"></a>
                 </td>

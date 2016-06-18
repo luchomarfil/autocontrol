@@ -23,7 +23,7 @@
                 <td>{{ usuario.password }}</td>
                 <td>{% if usuario.tipousuario %}Yes{% else %}No{% endif %}</td>
                 <td>
-                    <a class="glyphicon glyphicon-eye-open" alt="Ver" title="Ver más" href="{{ path('usuario_show', { 'id': usuario.id }) }}"></a>
+                    <a class="glyphicon glyphicon-remove" alt="Ver" title="Eliminar" href="{{ path('usuario_show', { 'id': usuario.id }) }}"></a>
                     |
                     <a class="glyphicon glyphicon-pencil" alt="Editar" title="Editar" href="{{ path('usuario_edit', { 'id': usuario.id }) }}"></a>
                 </td>
