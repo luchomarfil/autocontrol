@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'backend.html.twig' %}
 
 {% block body %}
     <legend>Listado de Baterias</legend>
@@ -6,7 +6,6 @@
     <table class="table table-striped table-bordered">
         <thead>
             <tr>
-                <th>Id</th>
                 <th>Numero</th>
                 <th>Energia</th>
                 <th>Temperatura</th>
@@ -17,20 +16,14 @@
         <tbody>
         {% for baterium in baterias %}
             <tr>
-                <td><a href="{{ path('bateria_show', { 'id': baterium.id }) }}">{{ baterium.id }}</a></td>
                 <td>{{ baterium.numero }}</td>
                 <td>{{ baterium.energia }}</td>
                 <td>{{ baterium.temperatura }}</td>
                 <td>{{ baterium.coordenada }}</td>
                 <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('bateria_show', { 'id': baterium.id }) }}">Ver</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('bateria_edit', { 'id': baterium.id }) }}">Editar</a>
-                        </li>
-                    </ul>
+                    <a class="glyphicon glyphicon-eye-open" alt="Ver" title="Ver más" href="{{ path('bateria_show', { 'id': baterium.id }) }}"></a>
+                    |
+                    <a class="glyphicon glyphicon-pencil" alt="Editar" title="Editar" href="{{ path('bateria_edit', { 'id': baterium.id }) }}"></a>
                 </td>
             </tr>
         {% endfor %}

@@ -186,5 +186,10 @@ class Bateria
     {
         return $this->centroAlmacenamiento;
     }
+
+    public function __toString() 
+    {
+        return $this->numero . " | " . $this->coordenada;
+    }
 }
 

@@ -186,5 +186,9 @@ class Usuario
     {
         return $this->tipo_usuario;
     }
+
+    public function __toString(){
+        return $this->nombre;
+    }
 }
 
