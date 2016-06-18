@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Autocontrol - Simulador IA</title>
+</h:head>
+<h:body>
+	<h3>Autocontrol - Simulador IA - Panel Principal</h3>
+	<h:form id="form">
+		<p:dataList value="#{panelControlBean.centros}" var="centro"
+			type="unordered" itemType="none" paginator="true" rows="4"
+			styleClass="paginated">
+			<f:facet name="header">
+            	Centros
+        	</f:facet>
+<!-- 			<p:commandLink update=":form:carDetail" oncomplete="PF('carDialog').show()" title="View Detail" -->
+<!-- 				styleClass="ui-icon ui-icon-search" style="float:left;margin-right:10px">  -->
+<!-- 				<f:setPropertyActionListener value="#{centro}"	target="#{panelControlBean.selectedCentro}" /> -->
+<!-- 				<h:outputText value="#{centro.id}, #{centro.gps}" /> -->
+<!-- 			</p:commandLink> -->
+			<h:outputText value="#{centro.id}, #{centro.gps}"	style="display:inline-block" />
+		</p:dataList>
+		<p:dataList value="#{panelControlBean.baterias}" var="bateria" type="unordered" itemType="none" paginator="true" rows="4"	styleClass="paginated">
+			<f:facet name="header">
+            	Baterias
+        	</f:facet>
+<!-- 			<p:commandLink update=":form:carDetail" oncomplete="PF('carDialog').show()" title="View Detail" -->
+<!-- 				styleClass="ui-icon ui-icon-search" style="float:left;margin-right:10px">  -->
+<!-- 				<f:setPropertyActionListener value="#{centro}"	target="#{panelControlBean.selectedCentro}" /> -->
+<!-- 				<h:outputText value="#{centro.id}, #{centro.gps}" /> -->
+<!-- 			</p:commandLink> -->
+			<h:outputText value="#{bateria.id}, #{bateria.gps}, #{bateria.capacidadActual}"	style="display:inline-block" />
+		</p:dataList>
+		
+		<p:dataList value="#{panelControlBean.terminales}" var="terminal" type="unordered" itemType="none" paginator="true" rows="4"	styleClass="paginated">
+			<f:facet name="header">
+            	Terminales
+        	</f:facet>
+<!-- 			<p:commandLink update=":form:carDetail" oncomplete="PF('carDialog').show()" title="View Detail" -->
+<!-- 				styleClass="ui-icon ui-icon-search" style="float:left;margin-right:10px">  -->
+<!-- 				<f:setPropertyActionListener value="#{centro}"	target="#{panelControlBean.selectedCentro}" /> -->
+<!-- 				<h:outputText value="#{centro.id}, #{centro.gps}" /> -->
+<!-- 			</p:commandLink> -->
+			<h:outputText value="#{terminal.id}, #{terminal.gps}, #{terminal.capacidadGeneradora}"	style="display:inline-block" />
+		</p:dataList>
+
+<!-- 		<p:dialog header="Car Info" widgetVar="carDialog" modal="true" -->
+<!-- 			showEffect="blind" hideEffect="explode" resizable="false"> -->
+<!-- 			<p:outputPanel id="carDetail" style="text-align:center;"> -->
+<!-- 				<p:panelGrid columns="2" -->
+<!-- 					rendered="#{not empty panelControlBean.selectedCentro}" -->
+<!-- 					columnClasses="label,value"> -->
+<!-- 					<f:facet name="header"> -->
+<!-- 						<p:graphicImage	name="demo/images/car/#{dataListView.selectedCar.brand}-big.gif" /> -->
+<!-- 					</f:facet> -->
+
+<!-- 					<h:outputText value="Id:" /> -->
+<!-- 					<h:outputText value="#{panelControlBean.selectedCentro.id}" /> -->
+
+<!-- 					<h:outputText value="GPS" /> -->
+<!-- 					<h:outputText value="#{panelControlBean.selectedCentro.gps}" /> -->
+
+<!-- 				</p:panelGrid> -->
+<!-- 			</p:outputPanel> -->
+<!-- 		</p:dialog> -->
+
+
+	</h:form>
+</h:body>
+</html>
