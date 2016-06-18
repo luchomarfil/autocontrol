@@ -1,0 +1,15 @@
+{% extends 'backend.html.twig' %}
+
+{% block body %}
+<div class="container col-md-7 col-md-offset-2">
+    <legend>Alta de Supervisor</legend>
+
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <input class="btn btn-success" type="submit" value="Crear" />
+    {{ form_end(form) }}
+    <br>
+    <legend></legend>
+    <a class="btn btn-info" href="{{ path('usuario_index') }}">Volver al listado</a>
+</div>
+{% endblock %}

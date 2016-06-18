@@ -1,0 +1,38 @@
+{% extends 'backend.html.twig' %}
+
+{% block body %}
+    <legend>Listado de Baterias</legend>
+
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Numero</th>
+                <th>Energia</th>
+                <th>Temperatura</th>
+                <th>Coordenada</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for baterium in baterias %}
+            <tr>
+                <td>{{ baterium.numero }}</td>
+                <td>{{ baterium.energia }}</td>
+                <td>{{ baterium.temperatura }}</td>
+                <td>{{ baterium.coordenada }}</td>
+                <td>
+                    <a class="glyphicon glyphicon-eye-open" alt="Ver" title="Ver más" href="{{ path('bateria_show', { 'id': baterium.id }) }}"></a>
+                    |
+                    <a class="glyphicon glyphicon-pencil" alt="Editar" title="Editar" href="{{ path('bateria_edit', { 'id': baterium.id }) }}"></a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a class="btn btn-primary" href="{{ path('bateria_new') }}">Crear nueva Batería</a>
+        </li>
+    </ul>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends 'backend.html.twig' %}
+
+{% block body %}
+    <legend>Listado de Terminales</legend>
+
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Numero</th>
+                <th>Estado</th>
+                <th>Coordenada</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for terminal in terminals %}
+            <tr>
+                <td>{{ terminal.numero }}</td>
+                <td>{{ terminal.estado }}</td>
+                <td>{{ terminal.coordenada }}</td>
+                <td>
+                    <a class="glyphicon glyphicon-eye-open" alt="Ver" title="Ver más" href="{{ path('terminal_show', { 'id': terminal.id }) }}"></a>
+                    |
+                    <a class="glyphicon glyphicon-pencil" alt="Editar" title="Editar" href="{{ path('terminal_edit', { 'id': terminal.id }) }}"></a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a class="btn btn-primary" href="{{ path('terminal_new') }}">Crear nueva Terminal</a>
+        </li>
+    </ul>
+{% endblock %}

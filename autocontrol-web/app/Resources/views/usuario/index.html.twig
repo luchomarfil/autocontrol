@@ -1,0 +1,40 @@
+{% extends 'backend.html.twig' %}
+
+{% block body %}
+    <legend>Listado de Supervisores</legend>
+
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Dni</th>
+                <th>Nombre</th>
+                <th>Password</th>
+                <th>Tipo_usuario</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for usuario in usuarios %}
+            <tr>
+                <td>{{ usuario.username }}</td>
+                <td>{{ usuario.dni }}</td>
+                <td>{{ usuario.nombre }}</td>
+                <td>{{ usuario.password }}</td>
+                <td>{% if usuario.tipousuario %}Yes{% else %}No{% endif %}</td>
+                <td>
+                    <a class="glyphicon glyphicon-eye-open" alt="Ver" title="Ver más" href="{{ path('usuario_show', { 'id': usuario.id }) }}"></a>
+                    |
+                    <a class="glyphicon glyphicon-pencil" alt="Editar" title="Editar" href="{{ path('usuario_edit', { 'id': usuario.id }) }}"></a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a class="btn btn-primary" href="{{ path('usuario_new') }}">Crear nuevo Supersivor</a>
+        </li>
+    </ul>
+{% endblock %}

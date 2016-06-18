@@ -1,0 +1,15 @@
+{% extends 'backend.html.twig' %}
+
+{% block body %}
+<div class="container col-md-7 col-md-offset-2">
+    <legend>Editar Batería</legend>
+
+    {{ form_start(edit_form) }}
+        {{ form_widget(edit_form) }}
+        <input class="btn btn-success" type="submit" value="Editar" />
+    {{ form_end(edit_form) }}
+    <br>
+    <legend></legend>
+    <a class="btn btn-info" href="{{ path('bateria_index') }}">Volver al listado</a>
+</div>
+{% endblock %}
