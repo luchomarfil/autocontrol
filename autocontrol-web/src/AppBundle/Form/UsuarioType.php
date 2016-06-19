@@ -17,8 +17,11 @@ class UsuarioType extends AbstractType
         $builder
             ->add('username')
             ->add('dni')
-            ->add('nombre')
+            ->add('nombre', null, array('attr' => array(
+             'placeholder' => 'ingrese el nombre completo')))
             ->add('password', 'Symfony\Component\Form\Extension\Core\Type\PasswordType')
+            ->add('tipo_usuario', 'Symfony\Component\Form\Extension\Core\Type\HiddenType', array(
+            'data' => 'No'))
         ;
     }
     

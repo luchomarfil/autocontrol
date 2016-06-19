@@ -1,7 +1,14 @@
-li{
+li
+{
 	list-style:none;
 }
 
-td { text-align: center; }
+td
+{ 
+	text-align: center; 
+}
 
-th { text-align: center; }
+th 
+{ 
+	text-align: center; 
+}

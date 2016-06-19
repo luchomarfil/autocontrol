@@ -17,8 +17,9 @@ class CentroAlmacenamientoType extends AbstractType
         $builder
             ->add('numero')
             ->add('energia')
-            ->add('coordenada')
-        ;
+            ->add('coordenada', null, array('attr' => array(
+             'placeholder' => 'ingrese las coordenadas, separadas por coma')))        
+            ;
     }
     
     /**

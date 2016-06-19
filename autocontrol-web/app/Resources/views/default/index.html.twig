@@ -1,5 +1,13 @@
-	{% extends 'base.html.twig' %}
+{% extends 'backend.html.twig' %}
 
 {% block body %}
-    PAGINA DE INICIO
+	<div class="jumbotron">
+		<h1>Bienvenido</h1>
+		<legend>Estadísticas disponibles:</legend>
+		<p>
+			<a class="btn btn-primary btn-lg" href="#" role="button">Autos por Hora</a>
+			<a class="btn btn-primary btn-lg" href="#" role="button">Autos por Terminales</a>
+			<a class="btn btn-primary btn-lg" href="#" role="button">Energia total Acumulada</a>
+		</p>
+	</div>
 {% endblock %}

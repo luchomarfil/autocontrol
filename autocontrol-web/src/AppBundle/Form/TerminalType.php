@@ -16,9 +16,12 @@ class TerminalType extends AbstractType
     {
         $builder
             ->add('numero')
-            ->add('estado')
-            ->add('coordenada')
-            ->add('usuario')
+            ->add('estado', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
+                'choices'   => array('Habilitado' => 'habilitado', 'Deshabilitado' => 'deshabilitado', 'En Reparación' => 'en reparacion'), 'required'  => true, 'placeholder' => 'Seleccione un estado'))            
+            ->add('coordenada', null, array('attr' => array(
+             'placeholder' => 'ingrese las coordenadas, separadas por coma')))
+            ->add('usuario', null, array('attr' => array(
+             'placeholder' => 'Seleccione un Supervisor')))
             ->add('bateria')
         ;
     }
