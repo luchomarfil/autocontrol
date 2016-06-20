@@ -26,7 +26,7 @@ public class Test {
 			Simulador.getInstance().altaTerminal(17L, 14L, "ubicacionTerminal19", 0.280F);
 			while(true){
 				Thread.sleep(10000);
-				Simulador.getInstance().consultarUltimosEstadosBateria(13L,fecha);
+				Simulador.getInstance().consultarUltimosEstadosBateria(13L,12L);
 				fecha = new Date();
 			}
 		} catch (SimuladorException | InterruptedException e) {

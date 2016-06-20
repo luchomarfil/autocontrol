@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Autocontrol - Simulador IA</title>
+</h:head>
+<h:body>
+<h:form id="form">
+<p:layout fullPage="true">
+    <p:layoutUnit position="center">
+        	<p:growl id="messages"/>
+        	<p:menubar>
+	        	<p:menuitem value="Simuladores" url="/ia.xhtml"    icon="ui-icon-document" />
+	 			<p:menuitem value="Hardware"    url="/hard.xhtml" icon="ui-icon-document" />
+			</p:menubar>
+			<p:accordionPanel>
+		        <p:tab title="Centros">
+		        			<p:dataGrid var="centro" value="#{panelControlBean.centros}" 
+		        					columns="4" layout="grid" rows="2" paginator="true" id="centrosIA" paginatorPosition="bottom"
+									paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"> 
+		
+	
+							<p:panel header="Centro id:#{centro.id}" style="text-align:left">
+								<h:panelGrid columns="1" style="width:100%">
+		
+									<h:panelGrid columns="2" id="panelDatosEventos">
+										<h:outputText style="font-weight: bold;" value="GPS:" />
+										<h:outputText value="#{centro.gps}"/>
+										
+										<h:outputText style="font-weight: bold;" value="Cantidad de baterias:" />										
+										<h:outputText value="#{centro.baterias.size()}"/>
+										
+										<h:outputText style="font-weight: bold;" value="Capacidad actual:" />										
+										<h:outputText value="#{centro.capacidadActual}mA"/>
+										
+										
+										<h:outputText style="font-weight: bold;" value="Eventos en buffer:" />
+										<h:outputText value="#{centro.buffer.size()}"/>
+										
+										
+										<p:poll interval="6" update="panelDatosEventos" />
+									</h:panelGrid>
+
+								</h:panelGrid>
+							</p:panel>
+		
+						</p:dataGrid>
+				</p:tab>
+				<p:tab title="Baterias">
+						<p:dataGrid var="bateria" value="#{panelControlBean.baterias}" 
+		        					columns="4" layout="grid" rows="2" paginator="true" id="baterias" paginatorPosition="bottom"
+									paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"> 
+		
+	
+							<p:panel header="Bateria id:#{bateria.id}" style="text-align:left">
+								<h:panelGrid columns="1" style="width:100%">
+		
+									<h:panelGrid columns="2" id="panelDatosEventosBateria">
+										<h:outputText style="font-weight: bold;" value="GPS:" />
+										<h:outputText value="#{bateria.gps}"/>
+										
+										<h:outputText style="font-weight: bold;" value="Cantidad de terminales:" />										
+										<h:outputText value="#{bateria.terminales.size()}"/>
+										
+										<h:outputText style="font-weight: bold;" value="Capacidad actual:" />										
+										<h:outputText value="#{bateria.capacidadActual}mA"/>
+										
+										
+										<h:outputText style="font-weight: bold;" value="Eventos en buffer:" />
+										<h:outputText value="#{bateria.buffer.size()}"/>
+										
+										
+										<p:poll interval="6" update="panelDatosEventosBateria" />
+									</h:panelGrid>
+
+								</h:panelGrid>
+							</p:panel>
+		
+						</p:dataGrid>
+				
+
+				</p:tab>
+		        <p:tab title="Terminales">
+		        		<p:dataGrid var="terminal" value="#{panelControlBean.terminales}" 
+		        					columns="4" layout="grid" rows="8" paginator="true" id="terminales" paginatorPosition="bottom"
+									paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"> 
+		
+	
+							<p:panel header="Terminal id:#{terminal.id}" style="text-align:left">
+								<h:panelGrid columns="1" style="width:100%">
+		
+									<h:panelGrid columns="2" id="panelDatosEventosTerminal">
+										<h:outputText style="font-weight: bold;" value="GPS:" />
+										<h:outputText value="#{terminal.gps}"/>
+										
+										<h:outputText style="font-weight: bold;" value="Capacidad actual:" />										
+										<h:outputText value="#{terminal.capacidadGeneradora}mA"/>
+										
+										<h:outputText style="font-weight: bold;" value="Ultima generada:" />										
+										<h:outputText value="#{terminal.ultimaGenerada}mA"/>
+																				
+										<h:outputText style="font-weight: bold;" value="Eventos en buffer:" />
+										<h:outputText value="#{terminal.buffer.size()}"/>
+										
+										
+										<p:poll interval="6" update="panelDatosEventosTerminal" />
+									</h:panelGrid>
+
+								</h:panelGrid>
+							</p:panel>
+		
+						</p:dataGrid>
+				</p:tab>		
+		    </p:accordionPanel>
+    </p:layoutUnit>
+</p:layout>
+</h:form>
+</h:body>
+</html>

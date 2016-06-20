@@ -10,8 +10,157 @@
 	<title>Autocontrol - Simulador IA</title>
 </h:head>
 <h:body>
-	<h3>Autocontrol - Simulador IA - Panel Control Inteligencia Artificial</h3>
-	<h:form id="form">
-	</h:form>
+<h:form id="form">
+<p:layout fullPage="true">
+<!--     <p:layoutUnit position="north"> -->
+
+
+<!--     </p:layoutUnit> -->
+ 
+    <p:layoutUnit position="center">
+        	<p:growl id="messages"/>
+        	<p:menubar>
+	        	<p:menuitem value="Simuladores" url="/ia.xhtml"    icon="ui-icon-document" />
+	 			<p:menuitem value="Hardware"    url="/hard.xhtml" icon="ui-icon-document" />
+			</p:menubar>
+			<p:accordionPanel>
+		        <p:tab title="Centro Almacenamiento IA">
+						<p:dataGrid var="centroIA" value="#{panelControlBean.centrosIA}" columns="4" layout="grid" 
+									rows="2" paginator="true" id="centrosIA" paginatorPosition="bottom"
+									paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"> 
+		
+	
+							<p:panel header="#{centroIA.nombre}" style="text-align:left">
+								<h:panelGrid columns="1" style="width:100%">
+									<h:panelGrid columns="1" id="slideConsumo">
+										<h:outputText id="rangoMinMaxConsumo" value="Consumo entre #{centroIA.minConsumo}mA y #{centroIA.maxConsumo}mA" />
+										<p:slider step="1" maxValue="1000" for="minC,maxC" display="rangoMinMaxConsumo" range="true" displayTemplate="Consumo entre {min}mA y {max}mA">
+											<p:ajax event="slideEnd" process="minC,maxC" update="slideConsumo" />
+										</p:slider>
+									</h:panelGrid>
+									<h:inputHidden id="minC" value="#{centroIA.minConsumo}" />
+									<h:inputHidden id="maxC" value="#{centroIA.maxConsumo}" />
+		
+									<h:panelGrid columns="1" id="slideFrecuencia">
+										<h:outputText id="rangoMinMaxEventos"
+											value="Eventos entre #{centroIA.milisegundosMinFrecuencia}ms y #{centroIA.milisegundosMaxFrecuencia}ms" />
+										<p:slider step="1000" minValue="1000" maxValue="40000"
+											for="minE,maxE" display="rangoMinMaxEventos" range="true"
+											displayTemplate="Eventos entre {min}ms y {max}ms">
+											<p:ajax event="slideEnd" process="minE,maxE"
+												update="slideFrecuencia" />
+										</p:slider>
+									</h:panelGrid>
+									<h:inputHidden id="minE" value="#{centroIA.milisegundosMinFrecuencia}" />
+									<h:inputHidden id="maxE" value="#{centroIA.milisegundosMaxFrecuencia}" />
+		
+		
+									<h:panelGrid columns="2" id="panelDatosEventos">
+										<h:outputText style="font-weight: bold;" value="Centros manejados:" />
+										<h:outputText value="#{centroIA.centros.size()}"/>
+										
+										<h:outputText style="font-weight: bold;" value="Eventos generados buffer:" />										
+										<h:outputText value="#{centroIA.cantidadEventos}"/>
+										
+										
+										<h:outputText style="font-weight: bold;" value="Suma consumo buffer:" />
+										<h:outputText value="#{centroIA.sumaConsumo}mA"/>
+										
+										
+										<p:poll interval="6" update="panelDatosEventos" />
+									</h:panelGrid>
+
+								</h:panelGrid>
+							</p:panel>
+		
+						</p:dataGrid>
+		
+		
+		
+					</p:tab>
+			        <p:tab title="Terminales IA">
+						<p:dataGrid var="terminalIA"
+							value="#{panelControlBean.terminalesIA}" columns="4" layout="grid"
+							rows="2" paginator="true" id="terminalesIA"
+							paginatorPosition="bottom"
+							paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+							rowsPerPageTemplate="6,12,16">
+		
+		<!-- 					<f:facet name="header"> -->
+		<!-- 	         		   Terminales IA -->
+		<!-- 	    		    </f:facet> -->
+		
+							<p:panel header="#{terminalIA.nombre}" style="text-align:left">
+								<h:panelGrid columns="1" style="width:100%">
+									<h:panelGrid columns="1" id="slideConsumoTerminal">
+										<h:outputText id="rangoMinMaxGeneradaTerminal"
+											value="Generada entre #{terminalIA.minGenerada}mA y #{terminalIA.maxGenerada}mA" />
+										<p:slider step="1" maxValue="1000" for="minG,maxG"
+											display="rangoMinMaxGeneradaTerminal" range="true"
+											displayTemplate="Generada entre {min}mA y {max}mA">
+											<p:ajax event="slideEnd" process="minG,maxG"
+												update="slideConsumoTerminal" />
+										</p:slider>
+									</h:panelGrid>
+									<h:inputHidden id="minG" value="#{terminalIA.minGenerada}" />
+									<h:inputHidden id="maxG" value="#{terminalIA.maxGenerada}" />
+		
+									<h:panelGrid columns="1" id="slideFrecuenciaTerminal">
+										<h:outputText id="rangoMinMaxEventos"
+											value="Eventos entre #{terminalIA.milisegundosMinFrecuencia}ms y #{terminalIA.milisegundosMaxFrecuencia}ms" />
+										<p:slider step="1000" minValue="1000" maxValue="40000"
+											for="minT,maxT" display="rangoMinMaxEventos" range="true"
+											displayTemplate="Eventos entre {min}ms y {max}ms">
+											<p:ajax event="slideEnd" process="minT,maxT"
+												update="slideFrecuenciaTerminal" />
+										</p:slider>
+									</h:panelGrid>
+									<h:inputHidden id="minT" value="#{terminalIA.milisegundosMinFrecuencia}" />
+									<h:inputHidden id="maxT" value="#{terminalIA.milisegundosMaxFrecuencia}" />
+		
+		
+									<h:panelGrid columns="2" id="panelDatosEventosTerminales">
+										<h:outputText style="font-weight: bold;" value="Terminales manejadas:" />
+										<h:outputText value="#{terminalIA.terminales.size()}" />
+										
+										<h:outputText style="font-weight: bold;" value="Energia generada buffer:" />
+										<h:outputText value="#{terminalIA.sumaEnergiaGenerada}mA"/>
+										
+										<p:poll interval="6" update="panelDatosEventosTerminales" />
+									</h:panelGrid>
+
+								</h:panelGrid>
+							</p:panel>
+		
+						</p:dataGrid>
+		
+		
+		
+					</p:tab>
+		
+		    </p:accordionPanel>
+		
+
+
+    </p:layoutUnit>
+</p:layout>
+
+
+
+
+
+
+</h:form>
+
+
+
+
+
+
+
+
+
+
+
 </h:body>
 </html>

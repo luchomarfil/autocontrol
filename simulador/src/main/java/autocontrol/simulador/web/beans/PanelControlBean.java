@@ -4,12 +4,18 @@ import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+
+import org.primefaces.event.SlideEndEvent;
 
 import autocontrol.simulador.model.bateria.BateriaHW;
 import autocontrol.simulador.model.centro.CentroAlmacenamientoHW;
+import autocontrol.simulador.model.centro.CentroAlmacenamientoIA;
 import autocontrol.simulador.model.terminal.TerminalHW;
+import autocontrol.simulador.model.terminal.TerminalIA;
 import autocontrol.simulador.service.Simulador;
  
 @ManagedBean
@@ -40,6 +46,12 @@ public class PanelControlBean implements Serializable {
     public List<TerminalHW> getTerminales(){
     	return Simulador.getInstance().getTerminales();
     }
+    public List<CentroAlmacenamientoIA> getCentrosIA(){
+    	return Simulador.getInstance().getCentrosIA();
+    }
+    public List<TerminalIA> getTerminalesIA(){
+    	return Simulador.getInstance().getTerminalesIA();
+    }
  
     public String getCurrentTime() {
  
@@ -60,4 +72,9 @@ public class PanelControlBean implements Serializable {
 	public void setSelectedCentro(CentroAlmacenamientoHW selectedCentro) {
 		this.selectedCentro = selectedCentro;
 	}
+	
+    public void onSlideEnd(SlideEndEvent event) {
+        FacesMessage message = new FacesMessage("Slide Ended", "Value: " + event.getValue());
+        FacesContext.getCurrentInstance().addMessage(null, message);
+    } 
 }

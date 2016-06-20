@@ -5,12 +5,16 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+
 import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import autocontrol.simulador.model.bateria.BateriaHW;
 
+@XmlRootElement
 public class TerminalHW {
 
 	private static Logger logger = LoggerFactory.getLogger(TerminalHW.class);
@@ -19,8 +23,9 @@ public class TerminalHW {
 	private Float capacidadGeneradora;
 	private Long id;
 	
+	@XmlTransient
 	public BateriaHW bateria;	
-	public List<EventoTerminal> buffer = new ArrayList<EventoTerminal>();
+	private List<EventoTerminal> buffer = new ArrayList<EventoTerminal>();
 	
 	
 	public TerminalHW() {
@@ -35,7 +40,7 @@ public class TerminalHW {
 		e.id = e.fecha.getTime();
 		e.generado = generada;
 		e.aceptadoPorBateria = (bateria.getCapacidadActual() + generada) < bateria.getCapacidadMaxima();
-		buffer.add(e);
+		getBuffer().add(e);
 		logger.debug(this.toString());
 		if(e.aceptadoPorBateria){
 			bateria.cargarBateria(generada);
@@ -45,21 +50,21 @@ public class TerminalHW {
 
 
 	public synchronized List<EventoTerminal> getEventos(Long idUltimoRegistroConocido) {
-		synchronized (this.buffer) {
+		synchronized (this.getBuffer()) {
 
 			//primero separa todos los elementos menores a la fecha
 			List<EventoTerminal> aBorrar = obtenerEventosViejos(idUltimoRegistroConocido);		
-			CollectionUtils.removeAll(this.buffer,aBorrar);
+			CollectionUtils.removeAll(this.getBuffer(),aBorrar);
 			//una vez borrado, retorno el buffer // no se borrara nada hasta que venga una siguiente peticion
 			//con la fecha del ultimo evento confirmado
-			return this.buffer;
+			return this.getBuffer();
 			
 		}		
 	}
 
 	private synchronized List<EventoTerminal> obtenerEventosViejos(Long idUltimoRegistroConocido) {
 		List<EventoTerminal> eventos = new ArrayList<EventoTerminal>();
-		Iterator<EventoTerminal> iterator = this.buffer.iterator();
+		Iterator<EventoTerminal> iterator = this.getBuffer().iterator();
 		while (iterator.hasNext()) {
 			EventoTerminal e = (EventoTerminal) iterator.next();
 			if(e.fecha.before(new Date(idUltimoRegistroConocido))){
@@ -76,14 +81,14 @@ public class TerminalHW {
 
 	@Override
 	public String toString() {
-		return "TerminalHW [id=" + getId() + ", ultimaGenerada()=" + ultimaGenerada() + "]";
+		return "TerminalHW [id=" + getId() + ", ultimaGenerada()=" + getUltimaGenerada() + "]";
 	}
 
 
-	private String ultimaGenerada() {
+	public String getUltimaGenerada() {
 		String ultimaCapacidadGenerada ="";
-		if(!this.buffer.isEmpty()){
-			ultimaCapacidadGenerada = this.buffer.get(this.buffer.size()-1).generado.toString();
+		if(!this.getBuffer().isEmpty()){
+			ultimaCapacidadGenerada = this.getBuffer().get(this.getBuffer().size()-1).generado.toString();
 		}
 		return ultimaCapacidadGenerada;
 	}
@@ -116,6 +121,16 @@ public class TerminalHW {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+
+	public List<EventoTerminal> getBuffer() {
+		return buffer;
+	}
+
+
+	public void setBuffer(List<EventoTerminal> buffer) {
+		this.buffer = buffer;
 	}
 	
 	

@@ -2,13 +2,15 @@ package autocontrol.simulador.service;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+
+import org.apache.log4j.Logger;
 
 import autocontrol.simulador.exceptions.SimuladorException;
 import autocontrol.simulador.model.bateria.BateriaHW;
@@ -36,33 +38,54 @@ public class Simulador {
 	private Simulador() {
 		//una IA que deberia generar varios eventos para una terminal
 		terminalIADensa = new TerminalIA("TerminalDensaIA");
-		terminalIADensa.maxGenerada =   10.0F;
-		terminalIADensa.minGenerada =  0.001F;
-		terminalIADensa.milisegundosMinFrecuencia = 100;
-		terminalIADensa.milisegundosMaxFrecuencia = 3000;		
+		terminalIADensa.setMaxGenerada(10.0F);
+		terminalIADensa.setMinGenerada(0.001F);
+		terminalIADensa.setMilisegundosMinFrecuencia(100);
+		terminalIADensa.setMilisegundosMaxFrecuencia(3000);		
 		//los parametros para esta terminal son mas laxos
 		terminalIADesierta = new TerminalIA("TerminalDesiertaIA");
-		terminalIADesierta.maxGenerada =  9.0F;
-		terminalIADesierta.minGenerada =  0.001F;
-		terminalIADesierta.milisegundosMinFrecuencia = 10000;
-		terminalIADesierta.milisegundosMaxFrecuencia = 60000;
+		terminalIADesierta.setMaxGenerada(9.0F);
+		terminalIADesierta.setMinGenerada(0.001F);
+		terminalIADesierta.setMilisegundosMinFrecuencia(10000);
+		terminalIADesierta.setMilisegundosMaxFrecuencia(60000);
 		//una IA que deberia consumir bastante de las baterias
 		centroAlmacenamientoIACapitalista = new CentroAlmacenamientoIA("CentroIACapitalista");
-		centroAlmacenamientoIACapitalista.maxConsumo =  1.0F;
-		centroAlmacenamientoIACapitalista.minConsumo =  0.1F;
-		centroAlmacenamientoIACapitalista.milisegundosMinFrecuencia = 10000;
-		centroAlmacenamientoIACapitalista.milisegundosMaxFrecuencia =  9000;		
+		centroAlmacenamientoIACapitalista.setMaxConsumo(100);
+		centroAlmacenamientoIACapitalista.setMinConsumo(1);
+		centroAlmacenamientoIACapitalista.setMilisegundosMinFrecuencia(1000);
+		centroAlmacenamientoIACapitalista.setMilisegundosMaxFrecuencia(20000);		
 		//una Ia que deberia consumir mucho menos
 		centroAlmacenamientoIAComunista = new CentroAlmacenamientoIA("CentroIAComunista");
-		centroAlmacenamientoIAComunista.maxConsumo =  0.3F;
-		centroAlmacenamientoIAComunista.minConsumo =  0.1F;
-		centroAlmacenamientoIAComunista.milisegundosMinFrecuencia = 30000;
-		centroAlmacenamientoIAComunista.milisegundosMaxFrecuencia =  15000;	
+		centroAlmacenamientoIAComunista.setMaxConsumo(3);
+		centroAlmacenamientoIAComunista.setMinConsumo(1);
+		centroAlmacenamientoIAComunista.setMilisegundosMinFrecuencia(13000);
+		centroAlmacenamientoIAComunista.setMilisegundosMaxFrecuencia(35000);	
 
-		executor.execute(terminalIADensa);
-		executor.execute(terminalIADesierta);
-		executor.execute(centroAlmacenamientoIACapitalista);
-		executor.execute(centroAlmacenamientoIAComunista);
+		getExecutor().execute(terminalIADensa);
+		getExecutor().execute(terminalIADesierta);
+		getExecutor().execute(centroAlmacenamientoIACapitalista);
+		getExecutor().execute(centroAlmacenamientoIAComunista);
+		
+		
+		
+		
+//		Runtime.getRuntime().addShutdownHook(new Thread() {
+//		    public void run() {
+//		        getExecutor().shutdown();
+//		        try {
+//					if (!getExecutor().awaitTermination(3,TimeUnit.SECONDS)) { //optional *
+//					    Logger.getLogger(Simulador.class).info("Executor did not terminate in the specified time."); //optional *
+//					    List<Runnable> droppedTasks = getExecutor().shutdownNow(); //optional **
+//					    Logger.getLogger(Simulador.class).info("Executor was abruptly shut down. " + droppedTasks.size() + " tasks will not be executed."); //optional **
+//					}
+//				} catch (InterruptedException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+//		    }
+//		});
+//		
+		
 	}
 	
 	public synchronized static Simulador getInstance(){
@@ -76,7 +99,7 @@ public class Simulador {
 		
 		CentroAlmacenamientoHW centroHW = centros.get(id);
 		
-		if(centroHW==null){
+		if(centroHW!=null){
 			throw new SimuladorException("Ya existe el centro dado de alta idCentro=:"+id);
 		}
 		
@@ -87,10 +110,10 @@ public class Simulador {
 		
 		//lo agrego a la IA de centros
 		if(r.nextBoolean()){
-			centroAlmacenamientoIACapitalista.centros.add(c);
+			centroAlmacenamientoIACapitalista.getCentros().add(c);
 		}
 		else{
-			centroAlmacenamientoIAComunista.centros.add(c);
+			centroAlmacenamientoIAComunista.getCentros().add(c);
 		}
 	}
 	
@@ -126,17 +149,19 @@ public class Simulador {
 		t.setId(id);
 		t.setGps(gps);
 		t.setCapacidadGeneradora(capacidadGeneradora);
-		//hago el enganche entre las clases del modelo
-		t.bateria = bateriaHW;
+
 		//lo agrego al simulador
 		terminales.put(id, t);
 		
+		//hago el enganche bidireccional entre bateria y terminal
+		bateriaHW.agregarBateria(t);
+		
 		//lo agrego a la IA de terminales
 		if(r.nextBoolean()){
-			terminalIADensa.terminales.add(t);
+			terminalIADensa.getTerminales().add(t);
 		}
 		else{
-			terminalIADesierta.terminales.add(t);
+			terminalIADesierta.getTerminales().add(t);
 		}
 	}
 	
@@ -203,5 +228,44 @@ public class Simulador {
 			aRetornar.add(c);
 		}
 		return aRetornar;
+	}
+
+	public List<CentroAlmacenamientoIA> getCentrosIA() {
+		List<CentroAlmacenamientoIA> centros = new ArrayList<CentroAlmacenamientoIA>();
+		centros.add(centroAlmacenamientoIACapitalista);
+		centros.add(centroAlmacenamientoIAComunista);
+		return centros;
+	}
+
+	public void matarInteligenciaArtificial() {
+		
+		List<CentroAlmacenamientoIA> centrosIA = getCentrosIA();
+		for (CentroAlmacenamientoIA c : centrosIA) {
+			c.activa = false;		
+			
+		}
+		
+		List<TerminalIA> terminalesIA = getTerminalesIA();
+		for (TerminalIA t : terminalesIA) {
+			t.setActiva(false);
+		}
+		
+	}
+
+	public List<TerminalIA> getTerminalesIA() {
+		
+		List<TerminalIA> t = new ArrayList<TerminalIA>();
+		t.add(terminalIADensa);
+		t.add(terminalIADesierta);
+		return t;
+		
+	}
+
+	public ExecutorService getExecutor() {
+		return executor;
+	}
+
+	public void setExecutor(ExecutorService executor) {
+		this.executor = executor;
 	}
 }

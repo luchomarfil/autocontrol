@@ -92,7 +92,7 @@ public class CentroAlmacenamientoHW {
 		
 	}
 	
-	private synchronized Float getCapacidadActual() {
+	public synchronized Float getCapacidadActual() {
 		Float cap = 0.0f;
 		for (BateriaHW bateriaHW : baterias) {
 			cap += bateriaHW.getCapacidadActual();

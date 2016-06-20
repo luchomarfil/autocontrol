@@ -11,6 +11,7 @@ import javax.xml.bind.annotation.XmlTransient;
 import org.apache.log4j.Logger;
 
 import autocontrol.simulador.model.centro.CentroAlmacenamientoHW;
+import autocontrol.simulador.model.terminal.TerminalHW;
 
 @XmlRootElement
 public class BateriaHW {
@@ -21,15 +22,17 @@ public class BateriaHW {
 	private Long id;
 	private Float temperatura; //en °C
 	private String gps;
+	private List<TerminalHW> terminales;
 	
 	@XmlTransient
 	public CentroAlmacenamientoHW centro;
 	
-	public List<EventoBateria> buffer;
+	private List<EventoBateria> buffer;
 	
 	
 	public BateriaHW() {
-		buffer = new ArrayList<EventoBateria>();
+		setBuffer(new ArrayList<EventoBateria>());
+		terminales = new ArrayList<TerminalHW>();
 	}
 	
 	public synchronized void cargarBateria(Float cantidad){
@@ -66,7 +69,7 @@ public class BateriaHW {
 		e.fecha = new Date();
 		e.id = e.fecha.getTime();
 		e.esDescarga =true;
-		this.buffer.add(e);
+		this.getBuffer().add(e);
 	}
 
 	private synchronized void generarEventoCarga(Float cantidad) {
@@ -77,7 +80,7 @@ public class BateriaHW {
 		e.temperatura = getTemperatura();
 		e.capacidadActual = getCapacidadActual();
 		e.id = e.fecha.getTime();
-		this.buffer.add(e);
+		this.getBuffer().add(e);
 	}
 	
 
@@ -90,8 +93,8 @@ public class BateriaHW {
 
 	private synchronized String ultimoEvento() {
 		String ultimaCapacidadGenerada ="";
-		if(!this.buffer.isEmpty()){
-			EventoBateria ultimoEvento = this.buffer.get(this.buffer.size()-1);
+		if(!this.getBuffer().isEmpty()){
+			EventoBateria ultimoEvento = this.getBuffer().get(this.getBuffer().size()-1);
 			Float energia = ultimoEvento.esDescarga? ultimoEvento.energia * -1: ultimoEvento.energia;
 			ultimaCapacidadGenerada = energia.toString();
 		}
@@ -99,23 +102,23 @@ public class BateriaHW {
 	}
 
 	public synchronized List<EventoBateria> getEventos(Long idUltimoRegistroConocido) {
-		synchronized (this.buffer) {
+		synchronized (this.getBuffer()) {
 			//primero separa todos los elementos menores a la fecha
 			List<EventoBateria> aBorrar = obtenerEventosViejos(idUltimoRegistroConocido);
-			logger.info("A borrar:"+aBorrar.size()+"     buffer antes: "+this.buffer.size());
+			logger.info("A borrar:"+aBorrar.size()+"     buffer antes: "+this.getBuffer().size());
 			
-			this.buffer.removeAll(aBorrar);
+			this.getBuffer().removeAll(aBorrar);
 			//una vez borrado, retorno el buffer // no se borrara nada hasta que venga una siguiente peticion
 			//con la fecha del ultimo evento confirmado
-			logger.info("buffer despues: "+this.buffer.size());
-			return this.buffer;
+			logger.info("buffer despues: "+this.getBuffer().size());
+			return this.getBuffer();
 		}
 
 	}
 
 	private synchronized List<EventoBateria> obtenerEventosViejos(Long idUltimoRegistroConocido) {
 		List<EventoBateria> eventos = new ArrayList<EventoBateria>();
-		Iterator<EventoBateria> iterator = this.buffer.iterator();
+		Iterator<EventoBateria> iterator = this.getBuffer().iterator();
 		while (iterator.hasNext()) {
 			EventoBateria e = (EventoBateria) iterator.next();
 			if(e.fecha.before(new Date(idUltimoRegistroConocido))){
@@ -166,6 +169,28 @@ public class BateriaHW {
 
 	public void setGps(String gps) {
 		this.gps = gps;
+	}
+
+	public void agregarBateria(TerminalHW t) {
+		//hago el enganche entre las clases del modelo
+		t.bateria = this;
+		this.terminales.add(t);
+	}
+
+	public List<TerminalHW> getTerminales() {
+		return terminales;
+	}
+
+	public void setTerminales(List<TerminalHW> terminales) {
+		this.terminales = terminales;
+	}
+
+	public List<EventoBateria> getBuffer() {
+		return buffer;
+	}
+
+	public void setBuffer(List<EventoBateria> buffer) {
+		this.buffer = buffer;
 	}
 	
 
