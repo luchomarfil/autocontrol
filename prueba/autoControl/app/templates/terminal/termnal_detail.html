@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="post">
+        {% if terminal.published_date %}
+            <div class="date">
+                {{ terminal.published_date }}
+            </div>
+        {% endif %}
+        <a href="{% url 'app.views.terminal_edit' pk=terminal.pk %}">Editar Terminal</a>
+        <a href="{% url 'app.views.terminal_borrar' pk=terminal.pk %}">Borrar Terminal</a>
+        <h1>Numero: {{ terminal.numero }}</h1>
+        <p>Bateria: {{ terminal.bateria }}</p>
+        <p>Estado: {{ terminal.estado }}</p>
+    </div>
+{% endblock %}

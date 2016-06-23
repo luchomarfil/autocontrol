@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="post">
+        {% if bateria.published_date %}
+            <div class="date">
+                {{ bateria.published_date }}
+            </div>
+        {% endif %}
+        <a href="{% url 'app.views.bateria_edit' pk=bateria.pk %}">Editar Bateria</a>
+        <a href="{% url 'app.views.bateria_borrar' pk=bateria.pk %}">Borrar Bateria</a>
+        <h1>Numero: {{ bateria.numero }}</h1>
+        <p>Energia: {{ bateria.energia }}</p>
+        <p>Temperatura: {{ bateria.temperatura }}</p>
+    </div>
+{% endblock %}

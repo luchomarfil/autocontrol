@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Bienvenido al sistema AutoControl</h1>
+      <p>Desde este sistema usted podra realizar ABM de Centros de Almacenamiento, terminales y baterias.</p>
+    <h1><a href="{% url 'app.views.centro_list' %}">Centros ABM</a></h1>
+    <h1><a href="{% url 'app.views.bateria_list' %}">Baterias ABM</a></h1>
+    <h1><a href="{% url 'app.views.terminal_list' %}">Terminal ABM</a></h1>
+{% endblock %}

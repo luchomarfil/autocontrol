@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<ul>
+  {% if terminales %}
+    {% for terminal in terminales %}
+      <div class="post">
+        <div class="date">
+          {{ terminal.published_date }}
+        </div>
+        <h2><a href="{% url 'app.views.terminal_detail' pk=terminal.pk %}">Terminal numero: {{ terminal.numero }}</h2>
+        <h3>Estado: {{ terminal.estado }}</h3>
+        <h3>Bateria: {{ terminal.bateria }}</h3>
+      </div>
+    {% endfor %}
+  {% else %}
+    <li>No hay terminales cargados en la BD</li>
+  {% endif %}
+</ul>
+{% endblock content %}

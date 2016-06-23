@@ -6,13 +6,25 @@
 <body>
 	<h1>PAGINA PRINCIPAL</h1>
 	<br>
-	<p>Tareas Dami:</p>	
+	<p>Tareas Dami:</p>
 	<ul>
 		<li>Crear este index</li>
 		<li>Hacer login</li>
 		<li>Hacer logout</li>
 		<li>Unir mi app con la api de lucho</li>
 	</ul>
+
+	<form action="<?php echo $view['router']->path('login') ?>" method="post">
+	    <label for="username">Username:</label>
+	    <input type="text" id="username" name="_username" />
+
+	    <label for="password">Password:</label>
+	    <input type="password" id="password" name="_password" />
+
+
+	    <button type="submit">login</button>
+	</form>
+
 	<p>Para configuraciones, leer los README.md</p>
 </body>
 </html>
