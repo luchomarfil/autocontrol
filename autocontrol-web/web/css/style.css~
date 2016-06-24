@@ -1,0 +1,14 @@
+li
+{
+	list-style: none;
+}
+
+td
+{ 
+	text-align: center; 
+}
+
+th 
+{ 
+	text-align: center; 
+}

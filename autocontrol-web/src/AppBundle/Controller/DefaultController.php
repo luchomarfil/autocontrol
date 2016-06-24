@@ -8,14 +8,16 @@ use Symfony\Component\HttpFoundation\Request;
 
 class DefaultController extends Controller
 {
-    /**
-     * @Route("/", name="homepage")
-     */
+
     public function indexAction(Request $request)
     {
-        // replace this example code with whatever you need
-        return $this->render('default/index.html.twig', [
-            'base_dir' => realpath($this->getParameter('kernel.root_dir').'/..'),
-        ]);
+    	if ($request->getSession()->get('rol') == 1) {
+        	return $this->render('default/index.html.twig', array('s' => $request->getSession()->get('rol')));
+        }
+        else{
+        	return $this->render('default/index_sup.html.twig', array('s' => $request->getSession()->get('rol')));
+        }
+
+
     }
 }

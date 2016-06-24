@@ -1,6 +1,6 @@
 li
 {
-	list-style:none;
+	list-style: none;
 }
 
 td
@@ -11,4 +11,10 @@ td
 th 
 { 
 	text-align: center; 
+}
+
+.carousel-inner > .item > img {
+    margin: 0 auto;
+    width:640px;
+    height:360px;
 }
