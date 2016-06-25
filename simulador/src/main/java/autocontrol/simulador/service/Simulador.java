@@ -8,9 +8,6 @@ import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
-
-import org.apache.log4j.Logger;
 
 import autocontrol.simulador.exceptions.SimuladorException;
 import autocontrol.simulador.model.bateria.BateriaHW;
@@ -100,7 +97,7 @@ public class Simulador {
 		CentroAlmacenamientoHW centroHW = centros.get(id);
 		
 		if(centroHW!=null){
-			throw new SimuladorException("Ya existe el centro dado de alta idCentro=:"+id);
+			throw new SimuladorException("Ya existe el centro dado de alta idCentro="+id);
 		}
 		
 		CentroAlmacenamientoHW c = new CentroAlmacenamientoHW();		
@@ -124,6 +121,10 @@ public class Simulador {
 			throw new SimuladorException("No se encuentra el centro especificado por idCentro=:"+idCentro+ ". Debe simular priimero el centro");
 		}
 		
+		if(baterias.get(id)!=null){
+			throw new SimuladorException("Ya existe la bateria dada de alta idBateria="+id);
+		}
+		
 		BateriaHW b = new BateriaHW();
 		b.setId(id);
 		b.setTemperatura((float) 1 + r.nextInt(120));
@@ -144,6 +145,11 @@ public class Simulador {
 		if(bateriaHW==null){
 			throw new SimuladorException("No se encuentra la bateria especificada por idBateria=:"+idBateria+ ". Debe simular primero la bateria");
 		}
+				
+		if(terminales.get(id)!=null){
+			throw new SimuladorException("Ya existe la terminal dado de alta idTerminal="+id);
+		}
+		
 		
 		TerminalHW t = new TerminalHW();
 		t.setId(id);

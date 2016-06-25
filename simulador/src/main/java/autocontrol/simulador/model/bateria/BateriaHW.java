@@ -121,7 +121,7 @@ public class BateriaHW {
 		Iterator<EventoBateria> iterator = this.getBuffer().iterator();
 		while (iterator.hasNext()) {
 			EventoBateria e = (EventoBateria) iterator.next();
-			if(e.fecha.before(new Date(idUltimoRegistroConocido))){
+			if(idUltimoRegistroConocido!=null && e.id <= idUltimoRegistroConocido){
 				eventos.add(e);
 			}
 			else{

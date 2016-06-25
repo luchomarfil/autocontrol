@@ -2,6 +2,9 @@ package autocontrol.simulador.model.centro;
 
 import java.util.Date;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class EventoCentroAlmacenamiento {
 
 	public Date fecha;

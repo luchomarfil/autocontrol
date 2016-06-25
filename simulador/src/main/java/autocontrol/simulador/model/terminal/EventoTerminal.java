@@ -2,6 +2,9 @@ package autocontrol.simulador.model.terminal;
 
 import java.util.Date;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class EventoTerminal {
 
 	public Date fecha;

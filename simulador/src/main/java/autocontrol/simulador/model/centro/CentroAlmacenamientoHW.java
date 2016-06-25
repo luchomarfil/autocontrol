@@ -115,7 +115,7 @@ public class CentroAlmacenamientoHW {
 		synchronized (this.buffer) {
 			//primero separa todos los elementos menores a la fecha
 			List<EventoCentroAlmacenamiento> aBorrar = obtenerEventosViejos(idUltimoRegistroConocido);		
-			CollectionUtils.removeAll(this.buffer,aBorrar);
+			this.buffer.removeAll(aBorrar);
 			//una vez borrado, retorno el buffer // no se borrara nada hasta que venga una siguiente peticion
 			//con la fecha del ultimo evento confirmado
 			return this.buffer;
@@ -128,7 +128,7 @@ public class CentroAlmacenamientoHW {
 		Iterator<EventoCentroAlmacenamiento> iterator = this.buffer.iterator();
 		while (iterator.hasNext()) {
 			EventoCentroAlmacenamiento e = (EventoCentroAlmacenamiento) iterator.next();
-			if(e.fecha.before(new Date(idUltimoRegistroConocido))){
+			if(idUltimoRegistroConocido!=null && e.id <= idUltimoRegistroConocido){
 				eventos.add(e);
 			}
 			else{

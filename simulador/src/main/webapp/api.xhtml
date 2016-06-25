@@ -1,23 +1,103 @@
-<html>
-<body>
-<h2>Lista de metodos disponibles para interactuar con la api</h2>
-<h3>/altaterminal/idBateria</h3>
-el cliente envía al simulador la petición de crear una terminal.
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
 
-<h3>/altabateria/idCentro</h3>
-el cliente envía al simulador la petición de crear una batería.
+<h:head>
+	<title>Autocontrol - API</title>
+	<style>
+		table, th, td {
+		    border: 2px solid black;
+		    border-collapse: collapse;
+		}
+		th, td {
+		    padding: 5px;
+		    text-align: left;
+		}
+	</style>	
+</h:head>
+<h:body>
+	<h:form id="form">
+		<p:layout fullPage="true">
+			<p:layoutUnit position="center">
+        	<p:menubar>
+	        	<p:menuitem value="Simuladores" url="/ia.xhtml"    icon="ui-icon-document" />
+	 			<p:menuitem value="Hardware"    url="/hard.xhtml" icon="ui-icon-document" />
+	 			<p:menuitem value="API REST"    url="/api.xhtml" icon="ui-icon-document" />
+			</p:menubar>
+				<table>
+					<colgroup>
+						<col span="1" style="width: 5%;" />
+						<col span="1" style="width: 20%;" />
+						<col span="1" style="width: 20%;" />
+						<col span="1" style="width: 5%;" />
+						<col span="1" style="width: 35%;" />
+					</colgroup>
+					<tr>
+				    <th>Method</th>
+				    <th>Url</th>		
+				    <th>Params</th>
+				    <th>Retorna</th>
+				    <th>Descripcion</th>
+				  </tr>
+				  <tr>
+				    <td>GET</td>
+				    <td><a href="#{request.contextPath}/api/verify">/verify</a></td>		
+				    <td>-</td>
+				    <td>[ok=200,err=500]</td>
+				    <td>Metodo para comprobar si el servicio rest esta funcional</td>
+				  </tr>
+				  <tr>
+				    <td>GET</td>
+				    <td><a href="#{request.contextPath}/api/altaCentro/1/121212,121212">/altaCentro/{id}/{gps}</a></td>		
+				    <td>[id=id del centro,gps=geolocacion del centro]</td>
+				    <td>[ok=200,err=500]</td>
+				    <td>Metodo para dar de alta un nuevo centro</td>
+				  </tr>
+				  <tr>
+				    <td>GET</td>
+				    <td><a href="#{request.contextPath}/api/altaBateria/1/1/121212,121212/12000/100">/altaBateria/{id}/{idCentro}/{gps}/{cm}/{ca}</a></td>		
+				    <td>[id=id de la bateria,idCentro=id del centro al que pertenece la bateria,gps=geolocacion del centro,cm=capacidadmaxima en mA,ca=capacidad actual en mA]</td>
+				    <td>[ok=200,err=500]</td>
+				    <td>Metodo para dar de alta una nueva bateria, con id, id del centro asociado, geolocalizacion, capacidad maxima y capacidad actua</td>
+				  </tr>
+				  <tr>
+				    <td>GET</td>
+				    <td><a href="#{request.contextPath}/api/altaTerminal/1/1/121212,121212/120">/altaTerminal/{id}/{idBateria}/{gps}/{cg}</a></td>		
+				    <td>[id=id de la terminal,idBateria=id de la bateria,gps=geolocacion de la terminal,cg=capacidad generadora maxima en mA]</td>
+				    <td>[ok=200,err=500]</td>
+				    <td>Metodo para dar de alta una nueva terminal, con id, geolocalizacion, capacidad maxima generadora</td>
+				  </tr>
+				  <tr>
+				    <td>GET</td>
+				    <td><a href="#{request.contextPath}/api/eventosCentro/1/1">/eventosCentro/{id}/{idUltimoEventoConocido}?</a></td>		
+				    <td>[id=id del centro,idUltimoEventoConocido=id del ultimo evento conocido por el cliente]</td>
+				    <td>[ok=200,err=500]</td>
+				    <td>Metodo para obtener la lista de eventos posteriores al idUltimoEventoConocido del centro dado por id</td>
+				  </tr>
+				  <tr>
+				    <td>GET</td>
+				    <td><a href="#{request.contextPath}/api/eventosBateria/1/1">/eventosBateria/{id}/{idUltimoEventoConocido}?</a></td>		
+				    <td>[id=id de la bateria,idUltimoEventoConocido=id del ultimo evento conocido por el cliente]</td>
+				    <td>[ok=200,err=500]</td>
+				    <td>Metodo para obtener la lista de eventos posteriores al idUltimoEventoConocido de la bateria dado por id</td>
+				  </tr>
+				  <tr>
+				    <td>GET</td>
+				    <td><a href="#{request.contextPath}/api/eventosTerminal/1/1">/eventosTerminal/{id}/{idUltimoEventoConocido}?</a></td>		
+				    <td>[id=id de la terminal,idUltimoEventoConocido=id del ultimo evento conocido por el cliente]</td>
+				    <td>[ok=200,err=500]</td>
+				    <td>Metodo para obtener la lista de eventos posteriores al idUltimoEventoConocido de la terminal dado por id</td>
+				  </tr>
+				</table>
 
-<h3>/altacentro</h3>
-el cliente envía al simulador la petición de crear un centro de almacenamiento
 
-<h3>/consultarterminal/idTerminal/idUltimoRecibido</h3>
-solicita la lista del buffer del elemento, pero necesita el idUltimoRecibido, para eliminar elementos buffers innecesarios
-
-<h3>/consultarbateria/idBateria/idUltimoRecibido</h3>
-solicita la lista del buffer del elemento, pero necesita el idUltimoRecibido, para eliminar elementos buffers innecesarios
-
-<h3>/consultarcentro/idCentro/idUltimoRecibido</h3>
-solicita la lista del buffer del elemento, pero necesita el idUltimoRecibido, para eliminar elementos buffers innecesarios
-
-</body>
+			</p:layoutUnit>
+		</p:layout>
+	</h:form>
+</h:body>
 </html>
+

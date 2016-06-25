@@ -54,7 +54,7 @@ public class TerminalHW {
 
 			//primero separa todos los elementos menores a la fecha
 			List<EventoTerminal> aBorrar = obtenerEventosViejos(idUltimoRegistroConocido);		
-			CollectionUtils.removeAll(this.getBuffer(),aBorrar);
+			this.buffer.removeAll(aBorrar);
 			//una vez borrado, retorno el buffer // no se borrara nada hasta que venga una siguiente peticion
 			//con la fecha del ultimo evento confirmado
 			return this.getBuffer();
@@ -67,7 +67,7 @@ public class TerminalHW {
 		Iterator<EventoTerminal> iterator = this.getBuffer().iterator();
 		while (iterator.hasNext()) {
 			EventoTerminal e = (EventoTerminal) iterator.next();
-			if(e.fecha.before(new Date(idUltimoRegistroConocido))){
+			if(idUltimoRegistroConocido!=null && e.id <= idUltimoRegistroConocido){
 				eventos.add(e);
 			}
 			else{

@@ -2,6 +2,9 @@ package autocontrol.simulador.model.bateria;
 
 import java.util.Date;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class EventoBateria {
 
 	public Date fecha;
