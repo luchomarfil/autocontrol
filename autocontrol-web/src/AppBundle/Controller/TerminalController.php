@@ -50,8 +50,9 @@ class TerminalController extends Controller
             $em->persist($terminal);
             $em->flush();
 
-            return $this->redirectToRoute('terminal_show', array('id' => $terminal->getId()));
-        }
+            $text = "La Terminal Fue Creada Exitosamente!";
+            $terminals = $em->getRepository('AppBundle:Terminal')->findAll();
+            return $this->render('terminal/index.html.twig', array('terminals' => $terminals, 'text' => $text,));          }
 
         return $this->render('terminal/new.html.twig', array(
             'terminal' => $terminal,

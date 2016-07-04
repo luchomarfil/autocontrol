@@ -50,7 +50,9 @@ class UsuarioController extends Controller
             $em->persist($usuario);
             $em->flush();
 
-            return $this->redirectToRoute('usuario_show', array('id' => $usuario->getId()));
+            $text = "El Supervisor Fue Creado Exitosamente!";
+            $usuarios = $em->getRepository('AppBundle:Usuario')->findAll();
+            return $this->render('usuario/index.html.twig', array('usuarios' => $usuarios, 'text' => $text,));         
         }
 
         return $this->render('usuario/new.html.twig', array(

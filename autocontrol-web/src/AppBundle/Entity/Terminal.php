@@ -3,11 +3,15 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Terminal
  *
  * @ORM\Table(name="terminal")
+ * @UniqueEntity("numero")
+ * @UniqueEntity("coordenada")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\TerminalRepository")
  */
 class Terminal

@@ -2,7 +2,9 @@
 
 {% block body %}
     <legend>Listado de Centros de Almacenamiento</legend>
-
+    {% if text is defined %}
+        <p class="text-success">{{text}}</p>
+    {% endif %}
     <table class="table table-striped table-bordered">
         <thead>
             <tr>

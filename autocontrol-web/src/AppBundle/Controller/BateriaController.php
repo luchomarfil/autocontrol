@@ -50,8 +50,9 @@ class BateriaController extends Controller
             $em->persist($baterium);
             $em->flush();
 
-            return $this->redirectToRoute('bateria_show', array('id' => $baterium->getId()));
-        }
+            $text = "La Batería Fue Creada Exitosamente!";
+            $baterias = $em->getRepository('AppBundle:Bateria')->findAll();
+            return $this->render('usuario/index.html.twig', array('baterias' => $baterias, 'text' => $text,));         }
 
         return $this->render('bateria/new.html.twig', array(
             'baterium' => $baterium,

@@ -50,8 +50,9 @@ class CentroAlmacenamientoController extends Controller
             $em->persist($centroAlmacenamiento);
             $em->flush();
 
-            return $this->redirectToRoute('centroalmacenamiento_show', array('id' => $centroAlmacenamiento->getId()));
-        }
+            $text = "El Centro de Almacenamiento Fue Creado Exitosamente!";
+            $centroAlmacenamientos = $em->getRepository('AppBundle:CentroAlmacenamiento')->findAll();
+            return $this->render('centroalmacenamiento/index.html.twig', array('centroAlmacenamientos' => $centroAlmacenamientos, 'text' => $text,));            }
 
         return $this->render('centroalmacenamiento/new.html.twig', array(
             'centroAlmacenamiento' => $centroAlmacenamiento,

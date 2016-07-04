@@ -1,0 +1,55 @@
+<?php
+
+namespace AppBundle\Controller;
+
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Symfony\Component\Validator\Constraints\DateTime;
+
+class ApiController extends Controller
+{
+
+	/**
+     *
+     * @Route("/autoshora", name="autos_hora")
+     * @Method("GET")
+     */
+    public function indexAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $terminals = $em->getRepository('AppBundle:Terminal')->findAll();
+
+        $hora_actual = date('Y-m-d H:i:s');
+		$hora_vieja = date('Y-m-d H:i:s', strtotime('-1 hour'));
+
+		$arreglo_autos = array();
+
+		foreach ($terminals as $terminal) {
+			$arreglo_autos[$terminal->getId()] = $this->calcular_autos($hora_vieja, $hora_actual, $terminal);	
+		}        
+        return $this->render('terminal/show_car.html.twig', array(
+            'terminals' => $terminals, 'autos' => $arreglo_autos,
+        ));
+
+    }
+
+    private function calcular_autos($hora_vieja, $hora_actual, $terminal)
+    {
+    	$response = file_get_contents('http://localhost:8081/simulador/api/eventosTerminal/'.$terminal->getId());
+        $response = json_decode($response, true);
+        $cantidad_autos = 0;
+        if ($response == '') {
+        	return 0;
+        }
+	    foreach ($response['eventoTerminal'] as $value) {
+		    $hora_evento = date($value['fecha']);
+		    if ($hora_vieja < $hora_evento && $hora_evento < $hora_actual) {
+		        $cantidad_autos ++;
+		    }
+        }
+        return $cantidad_autos;
+    }
+
+}
