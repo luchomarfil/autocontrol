@@ -3,10 +3,14 @@ package autocontrol.simulador.model.terminal;
 import java.util.Date;
 
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import autocontrol.simulador.webservice.CustomDateXmlAdapter;
 
 @XmlRootElement
 public class EventoTerminal {
 
+    @XmlJavaTypeAdapter(CustomDateXmlAdapter.class)
 	public Date fecha;
 	public Long id;
 	public Float generado;
