@@ -3,10 +3,15 @@ from django.utils import timezone
 from .models import Centro, Bateria, Terminal
 from .forms import CentroForm, BateriaForm, TerminalForm
 from django.shortcuts import redirect
+from django.http import HttpResponseRedirect
+
 
 # Create your views here.
-
 def bateria_new(request):
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect('/admin/?next=%s' % request.path)
+    if not request.user.is_superuser:
+        return render(request, 'bateria/bateria_new.html', {'form': form})
     if request.method == 'GET':
         form = BateriaForm()
     else:
@@ -24,6 +29,8 @@ def bateria_new(request):
     return render(request, 'bateria/bateria_new.html', {'form': form})
 
 def terminal_new(request):
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect('/admin/?next=%s' % request.path)
     if request.method == 'GET':
         form = TerminalForm()
     else:
@@ -41,6 +48,8 @@ def terminal_new(request):
     return render(request, 'terminal/terminal_new.html', {'form': form})
 
 def centro_new(request):
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect('/admin/?next=%s' % request.path)
     if request.method == 'GET':
         form = CentroForm()
     else:
@@ -58,6 +67,8 @@ def centro_new(request):
     return render(request, 'centro/centro_new.html', {'form': form})
 
 def centro_edit(request, pk):
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect('/admin/?next=%s' % request.path)
     try:
         centro = get_object_or_404(Centro, pk=pk)
         if request.method == "POST":
@@ -74,6 +85,8 @@ def centro_edit(request, pk):
     return render(request,'centro/centro_edit.html', {'form':form})
 
 def bateria_edit(request, pk):
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect('/admin/?next=%s' % request.path)
     try:
         bateria = get_object_or_404(Bateria, pk=pk)
         if request.method == "POST":
@@ -90,6 +103,8 @@ def bateria_edit(request, pk):
     return render(request,'bateria/bateria_edit.html', {'form':form})
 
 def terminal_edit(request, pk):
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect('/admin/?next=%s' % request.path)
     try:
         terminal = get_object_or_404(Terminal, pk=pk)
         if request.method == "POST":
@@ -133,18 +148,26 @@ def principal(request):
     return render(request, 'index.html')
 
 def centro_borrar(request, pk):
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect('/admin/?next=%s' % request.path)
     centro = get_object_or_404(Centro, pk=pk)
     return render(request, 'centro/centro_borrar.html',{'centro':centro})
 
 def bateria_borrar(request, pk):
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect('/admin/?next=%s' % request.path)
     bateria = get_object_or_404(Bateria, pk=pk)
     return render(request, 'bateria/bateria_borrar.html',{'bateria':bateria})
 
 def terminal_borrar(request, pk):
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect('/admin/?next=%s' % request.path)
     terminal = get_object_or_404(Terminal, pk=pk)
     return render(request, 'terminal/terminal_borrar.html',{'terminal':terminal})
 
 def confirma_borrado(request, pk):
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect('/admin/?next=%s' % request.path)
     try:
         centro = Centro.objects.get(pk=pk)
         Centro.objects.filter(pk=pk).delete()
@@ -156,6 +179,8 @@ def confirma_borrado(request, pk):
         return render(request, 'confirma_borrado.html')
 
 def confirma_borrado_bateria(request, pk):
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect('/admin/?next=%s' % request.path)
     try:
         bateria = Bateria.objects.get(pk=pk)
         Bateria.objects.filter(pk=pk).delete()
@@ -167,6 +192,8 @@ def confirma_borrado_bateria(request, pk):
         return render(request, 'confirma_borrado.html')
 
 def confirma_borrado_terminal(request, pk):
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect('/admin/?next=%s' % request.path)
     try:
         terminal = Terminal.objects.get(pk=pk)
         Terminal.objects.filter(pk=pk).delete()
