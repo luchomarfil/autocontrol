@@ -1,0 +1,28 @@
+{% block table %}
+<div id="tabla_sup" class="">
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>Estado</th>
+                <th>Coordenada</th>
+                <th>Autos por Hora</th>
+                <th>Energía Total Generada</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for terminal in terminals %}
+            <tr>
+                <td>{{ terminal.id }}</td>
+                <td>{{ terminal.estado }}</td>
+                <td>{{ terminal.coordenada }}</td>
+                <td>{{ autos[terminal.id][0] }}</td>
+                <td>{{ autos[terminal.id][1] }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+</div>
+{% endblock %}

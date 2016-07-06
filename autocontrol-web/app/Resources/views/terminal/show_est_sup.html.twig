@@ -2,26 +2,27 @@
 
 {% block body %}
     <legend>Listado de Terminales</legend>
-    <table class="table table-striped table-bordered">
-        <thead>
-            <tr>
-                <th>id</th>
-                <th>Estado</th>
-                <th>Coordenada</th>
-                <th>Autos por Hora</th>
-                <th>Energía Total Generada</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for terminal in terminals %}
-            <tr>
-                <td>{{ terminal.id }}</td>
-                <td>{{ terminal.estado }}</td>
-                <td>{{ terminal.coordenada }}</td>
-                <td>{{ autos[terminal.id][0] }}</td>
-                <td>{{ autos[terminal.id][1] }}</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <button onclick="grafico()">Boton</button>
+    {{ include('terminal/grafico_sup.html.twig') }}
+
+    <script type="text/javascript">
+        grafico = function () {
+            //alert("mexican")
+            $.ajax(
+            {     url: '/admin/verterminalesajax', 
+                  type: 'get',
+                  data: null, 
+                  dataType: 'html', 
+                  success: function(data, textStatus, jqXHR){
+                    $("#tabla_sup").html(data); }, 
+                  error: function(jqXHR, textStatus, errorThrown){}, 
+                  complete: function( jqXHR, textStatus ){} 
+            });
+        }
+        setInterval(function(){
+                                grafico();         
+                              }, 5000);
+</script>
 {% endblock %}
+
+

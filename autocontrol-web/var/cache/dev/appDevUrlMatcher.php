@@ -121,16 +121,30 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
             }
             not_autos_hora:
 
-            // verterminales
-            if ($pathinfo === '/admin/verterminales') {
-                if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
-                    $allow = array_merge($allow, array('GET', 'HEAD'));
-                    goto not_verterminales;
-                }
+            if (0 === strpos($pathinfo, '/admin/verterminales')) {
+                // verterminales
+                if ($pathinfo === '/admin/verterminales') {
+                    if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                        $allow = array_merge($allow, array('GET', 'HEAD'));
+                        goto not_verterminales;
+                    }
 
-                return array (  '_controller' => 'AppBundle\\Controller\\ApiController::verTerminales',  '_route' => 'verterminales',);
+                    return array (  '_controller' => 'AppBundle\\Controller\\ApiController::verTerminales',  '_route' => 'verterminales',);
+                }
+                not_verterminales:
+
+                // verterminalesajax
+                if ($pathinfo === '/admin/verterminalesajax') {
+                    if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                        $allow = array_merge($allow, array('GET', 'HEAD'));
+                        goto not_verterminalesajax;
+                    }
+
+                    return array (  '_controller' => 'AppBundle\\Controller\\ApiController::verTerminalesAjax',  '_route' => 'verterminalesajax',);
+                }
+                not_verterminalesajax:
+
             }
-            not_verterminales:
 
             if (0 === strpos($pathinfo, '/admin/bateria')) {
                 // bateria_index

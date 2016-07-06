@@ -82,4 +82,29 @@ class ApiController extends Controller
         return $this->render('terminal/show_est_sup.html.twig', array('terminals' => $terminals, 'autos' 
         	=> $arreglo_ener,
         ));    }
+
+
+            /**
+     *
+     * @Route("/verterminalesajax", name="verterminalesajax")
+     * @Method("GET")
+     */
+    public function verTerminalesAjax(){
+
+        $hora_actual = date('Y-m-d H:i:s');
+        $hora_vieja = date('Y-m-d H:i:s', strtotime('-1 hour'));
+
+        $em = $this->getDoctrine()->getManager();
+        $terminals = $em->getRepository('AppBundle:Usuario')->findTerminals($_SESSION['_sf2_attributes']['id']);
+
+        $arreglo_ener = array();
+
+        foreach ($terminals as $terminal) {
+            $arreglo_ener[$terminal->getId()] = $this->calcularAutos($hora_vieja, $hora_actual, $terminal);
+        }
+
+        return $this->render('terminal/grafico_sup.html.twig', array('terminals' => $terminals, 'autos' 
+            => $arreglo_ener,
+        ));    
+    }
 }
