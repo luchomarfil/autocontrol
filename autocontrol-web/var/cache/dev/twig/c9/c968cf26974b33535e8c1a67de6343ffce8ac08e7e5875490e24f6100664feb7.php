@@ -21,20 +21,20 @@ class __TwigTemplate_978db8348ab1034284a7de261b15f8d7a2119952921a08c2b0bd1b38589
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_31060f67f476c3f9d8039a9b31a93cbf1651efca62f12588e8929238f371ecd3 = $this->env->getExtension("native_profiler");
-        $__internal_31060f67f476c3f9d8039a9b31a93cbf1651efca62f12588e8929238f371ecd3->enter($__internal_31060f67f476c3f9d8039a9b31a93cbf1651efca62f12588e8929238f371ecd3_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "terminal/new.html.twig"));
+        $__internal_d5ce108947643678f51d32c4b66d598acb90ba2f3870a915b1671c7da69ef0aa = $this->env->getExtension("native_profiler");
+        $__internal_d5ce108947643678f51d32c4b66d598acb90ba2f3870a915b1671c7da69ef0aa->enter($__internal_d5ce108947643678f51d32c4b66d598acb90ba2f3870a915b1671c7da69ef0aa_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "terminal/new.html.twig"));
 
         $this->parent->display($context, array_merge($this->blocks, $blocks));
         
-        $__internal_31060f67f476c3f9d8039a9b31a93cbf1651efca62f12588e8929238f371ecd3->leave($__internal_31060f67f476c3f9d8039a9b31a93cbf1651efca62f12588e8929238f371ecd3_prof);
+        $__internal_d5ce108947643678f51d32c4b66d598acb90ba2f3870a915b1671c7da69ef0aa->leave($__internal_d5ce108947643678f51d32c4b66d598acb90ba2f3870a915b1671c7da69ef0aa_prof);
 
     }
 
     // line 3
     public function block_body($context, array $blocks = array())
     {
-        $__internal_8c3219ea09269fe7383115f8f49dd80081e69dc07242027f8e3cad9743665c5e = $this->env->getExtension("native_profiler");
-        $__internal_8c3219ea09269fe7383115f8f49dd80081e69dc07242027f8e3cad9743665c5e->enter($__internal_8c3219ea09269fe7383115f8f49dd80081e69dc07242027f8e3cad9743665c5e_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "body"));
+        $__internal_73421d331e7cdbe353f3a23144b1ce825ccb979eba05c8daac7e12da76aebf91 = $this->env->getExtension("native_profiler");
+        $__internal_73421d331e7cdbe353f3a23144b1ce825ccb979eba05c8daac7e12da76aebf91->enter($__internal_73421d331e7cdbe353f3a23144b1ce825ccb979eba05c8daac7e12da76aebf91_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "body"));
 
         // line 4
         echo "    <div class=\"container col-md-7 col-md-offset-2\">
@@ -58,11 +58,11 @@ class __TwigTemplate_978db8348ab1034284a7de261b15f8d7a2119952921a08c2b0bd1b38589
     <a class=\"btn btn-info\" href=\"";
         // line 13
         echo $this->env->getExtension('routing')->getPath("terminal_index");
-        echo "\">Volver a la lista</a>
+        echo "\">Volver al listado</a>
 </div>
 ";
         
-        $__internal_8c3219ea09269fe7383115f8f49dd80081e69dc07242027f8e3cad9743665c5e->leave($__internal_8c3219ea09269fe7383115f8f49dd80081e69dc07242027f8e3cad9743665c5e_prof);
+        $__internal_73421d331e7cdbe353f3a23144b1ce825ccb979eba05c8daac7e12da76aebf91->leave($__internal_73421d331e7cdbe353f3a23144b1ce825ccb979eba05c8daac7e12da76aebf91_prof);
 
     }
 
@@ -93,7 +93,7 @@ class __TwigTemplate_978db8348ab1034284a7de261b15f8d7a2119952921a08c2b0bd1b38589
 /*     {{ form_end(form) }}*/
 /*     <br>*/
 /*     <legend></legend>*/
-/*     <a class="btn btn-info" href="{{ path('terminal_index') }}">Volver a la lista</a>*/
+/*     <a class="btn btn-info" href="{{ path('terminal_index') }}">Volver al listado</a>*/
 /* </div>*/
 /* {% endblock %}*/
 /* */

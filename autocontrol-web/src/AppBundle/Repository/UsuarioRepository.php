@@ -10,4 +10,21 @@ namespace AppBundle\Repository;
  */
 class UsuarioRepository extends \Doctrine\ORM\EntityRepository
 {
+	public function findById($id)
+	{
+		$em = $this->getEntityManager();
+        $dql = "SELECT u FROM AppBundle:Usuario u WHERE u.id = :id";
+		$query = $em->createQuery($dql);
+		$query->setParameter('id', $id);
+		return $query->getResult();
+	}
+
+	public function findTerminals($id)
+	{
+		$em = $this->getEntityManager();
+        $dql = "SELECT t FROM AppBundle:Terminal t INNER JOIN t.usuario u WHERE u.id = :id";
+		$query = $em->createQuery($dql);
+		$query->setParameter('id', $id);
+		return $query->getResult();
+	}
 }

@@ -192,5 +192,9 @@ class Terminal
     {
         return $this->bateria;
     }
+
+    public function __toString(){
+        return $this->getCoordenada();
+    }
 }
 

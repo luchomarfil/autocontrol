@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block body %}
+{% block navbar %}
 	<div>
 	<nav class="navbar navbar-default" role="navigation">
 		  <div class="navbar-header">
@@ -28,10 +28,12 @@
 		    </ul>
 		  </div>
 		</nav>
+{% endblock %}
+{% block body %}
 	<div class="jumbotron">
 		<legend>Bienvenido</legend>
 		<p>
-			<a class="btn btn-primary btn-lg" href="#" role="button">Ver Terminales</a>
+			<a class="btn btn-primary btn-lg" href="/admin/verterminales" role="button">Ver Terminales</a>
 			<a class="btn btn-primary btn-lg" href="#" role="button">Estadisticas</a>
 		</p>
 	</div>
