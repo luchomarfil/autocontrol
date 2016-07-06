@@ -22,25 +22,19 @@ python manage.py migrate apprest
 
 python manage.py runserver
 
+Vista principal de la APP
+
 http://127.0.0.1:8000/
 
-Vista principal de la APP
+LOGIN
 
 http://127.0.0.1:8000/admin
 user: admin
 pass: Atila1210
 
+
+API REST
+http://127.0.0.1:8000/api
+
+
 Dentro de la carpeta del proyecto
-
-autoControl/autoControl/
-esta el archivo: urls.py
-
-eliminar urlpatterns del archivo ese y copiar este url patterns para ver en ejecucion el api rest y ejecutarlo en
-http://127.0.0.1:8000/
-
-urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    #url(r'', include('app.urls')),
-    url(r'^', include(router.urls)),
-    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-]
